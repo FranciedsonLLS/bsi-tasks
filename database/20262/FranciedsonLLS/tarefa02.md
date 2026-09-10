@@ -127,3 +127,19 @@ erDiagram
 - Uma Sprint organiza zero ou muitas Tarefas; cada Tarefa está em, no máximo, uma Sprint (opcional).
 
 ---
+
+## Q4. Mapeamento para o Modelo Relacional
+
+| Relação (Tabela) | Atributos | Chave Primária (PK) | Chaves Estrangeiras (FK) |
+|---|---|---|---|
+| **CLIENTE** | cod_cliente, nome, email_contato | cod_cliente | — |
+| **PROJETO** | cod_projeto, nome, descricao, cod_cliente | cod_projeto | cod_cliente → CLIENTE |
+| **SQUAD** | cod_squad, nome, data_formacao | cod_squad | — |
+| **FUNCIONARIO** | cod_funcionario, nome, email, papel, cod_squad | cod_funcionario | cod_squad → SQUAD |
+| **SPRINT** | cod_sprint, numero, data_inicio, data_fim, cod_squad | cod_sprint | cod_squad → SQUAD |
+| **RELEASE** | cod_release, versao, situacao, cod_squad | cod_release | cod_squad → SQUAD |
+| **TAREFA** | cod_tarefa, descricao, prioridade, situacao, estimativa_horas, cod_projeto, cod_squad, cod_release, cod_sprint | cod_tarefa | cod_projeto → PROJETO; cod_squad → SQUAD; cod_release → RELEASE (aceita nulo); cod_sprint → SPRINT (aceita nulo) |
+
+Como todos os relacionamentos do modelo são do tipo 1:N (nenhum N:M), o mapeamento não gera nenhuma tabela associativa: a chave estrangeira é sempre colocada na relação do lado "muitos". A tabela TAREFA concentra quatro chaves estrangeiras porque ela é o lado "muitos" em quatro relacionamentos distintos (com PROJETO, SQUAD, RELEASE e SPRINT), sendo as duas últimas opcionais (aceitam nulo).
+
+
