@@ -55,3 +55,75 @@ Existem várias notações usadas para representar diagramas ER, e cada uma repr
 
 ---
 
+## Q3. Diagrama ER da empresa de desenvolvimento de software
+
+**Premissas assumidas** (para eliminar ambiguidades do enunciado e evitar redundância de dados):
+
+- Cada funcionário pertence a exatamente uma squad por vez (não há funcionário em múltiplas squads simultaneamente).
+- A tarefa está ligada ao projeto (que já identifica o cliente) — não existe um vínculo direto Tarefa–Cliente, pois isso seria redundante (o cliente já é obtido através do projeto).
+- Cada squad é responsável por resolver suas tarefas, planejar suas próprias sprints e releases.
+- Uma tarefa pode, opcionalmente, estar associada a uma sprint (quando planejada para execução) e a uma release (quando incluída em um pacote de entrega).
+- Uma release agrupa tarefas; o "teste de validação" citado no enunciado é tratado como o atributo `situacao` da release (ex.: planejada, em teste, validada, lançada), já que não foram pedidos atributos específicos de uma entidade "Teste".
+
+```mermaid
+erDiagram
+    CLIENTE ||--o{ PROJETO : possui
+    PROJETO ||--o{ TAREFA : contem
+    SQUAD ||--|{ FUNCIONARIO : e_composta_por
+    SQUAD ||--o{ TAREFA : resolve
+    SQUAD ||--o{ SPRINT : planeja
+    SQUAD ||--o{ RELEASE : planeja
+    RELEASE o|--o{ TAREFA : agrupa
+    SPRINT o|--o{ TAREFA : organiza
+
+    CLIENTE {
+        string cod_cliente PK
+        string nome
+        string email_contato
+    }
+    PROJETO {
+        string cod_projeto PK
+        string nome
+        string descricao
+    }
+    FUNCIONARIO {
+        string cod_funcionario PK
+        string nome
+        string email
+        string papel
+    }
+    SQUAD {
+        string cod_squad PK
+        string nome
+        date data_formacao
+    }
+    TAREFA {
+        string cod_tarefa PK
+        string descricao
+        string prioridade
+        string situacao
+        int estimativa_horas
+    }
+    SPRINT {
+        string cod_sprint PK
+        int numero
+        date data_inicio
+        date data_fim
+    }
+    RELEASE {
+        string cod_release PK
+        string versao
+        string situacao
+    }
+```
+
+**Leitura das cardinalidades:**
+- Um Cliente possui zero ou muitos Projetos; cada Projeto pertence a exatamente um Cliente.
+- Um Projeto contém zero ou muitas Tarefas; cada Tarefa pertence a exatamente um Projeto.
+- Uma Squad é composta por uma ou muitas Funcionários; cada Funcionário pertence a exatamente uma Squad.
+- Uma Squad resolve zero ou muitas Tarefas; cada Tarefa é resolvida por exatamente uma Squad.
+- Uma Squad planeja zero ou muitas Sprints e zero ou muitas Releases; cada Sprint e cada Release pertence a exatamente uma Squad.
+- Uma Release agrupa zero ou muitas Tarefas; cada Tarefa pertence a, no máximo, uma Release (opcional).
+- Uma Sprint organiza zero ou muitas Tarefas; cada Tarefa está em, no máximo, uma Sprint (opcional).
+
+---
