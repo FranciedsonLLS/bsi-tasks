@@ -142,4 +142,20 @@ erDiagram
 
 Como todos os relacionamentos do modelo são do tipo 1:N (nenhum N:M), o mapeamento não gera nenhuma tabela associativa: a chave estrangeira é sempre colocada na relação do lado "muitos". A tabela TAREFA concentra quatro chaves estrangeiras porque ela é o lado "muitos" em quatro relacionamentos distintos (com PROJETO, SQUAD, RELEASE e SPRINT), sendo as duas últimas opcionais (aceitam nulo).
 
+---
 
+## Q5. Restrições de integridade referencial do esquema
+
+- Todo projeto só pode existir vinculado a um cliente já existente.
+- Toda tarefa só pode existir vinculada a um projeto já existente.
+- Toda tarefa só pode existir vinculada a uma squad já existente, responsável por resolvê-la.
+- Todo funcionário só pode existir vinculado a uma squad já existente.
+- Toda sprint só pode existir vinculada a uma squad já existente.
+- Toda release só pode existir vinculada a uma squad já existente.
+- Se uma tarefa estiver vinculada a uma release, essa release deve existir e pertencer à mesma squad responsável pela tarefa (não é permitido uma tarefa estar numa release de outra squad).
+- Se uma tarefa estiver vinculada a uma sprint, essa sprint deve existir e pertencer à mesma squad responsável pela tarefa.
+- Não é permitido excluir um cliente que ainda possua projetos vinculados.
+- Não é permitido excluir um projeto que ainda possua tarefas vinculadas.
+- Não é permitido excluir uma squad que ainda possua funcionários, tarefas, sprints ou releases vinculados.
+- Toda squad deve possuir, entre seus funcionários, exatamente um líder técnico, um supervisor e um gerente de produto, além de ao menos um desenvolvedor e um testador.
+- O papel de um funcionário deve pertencer obrigatoriamente a um dos valores válidos: desenvolvedor, testador, líder técnico, supervisor ou gerente de produto.
