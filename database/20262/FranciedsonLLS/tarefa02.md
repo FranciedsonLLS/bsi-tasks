@@ -13,3 +13,45 @@ Representa um objeto ou conceito do mundo real sobre o qual queremos armazenar d
 **3. Relacionamento**
 É uma associação entre duas ou mais entidades, representando como elas se relacionam no domínio do problema (ex.: "Cliente possui Projeto"). Todo relacionamento possui uma **cardinalidade**, que define quantas ocorrências de uma entidade podem se associar a quantas ocorrências de outra entidade (1:1, 1:N ou N:M).
 
+---
+
+## Q2. Notações possíveis para Diagramas ER
+
+Existem várias notações usadas para representar diagramas ER, e cada uma representa os mesmos conceitos (entidade, atributo, relacionamento, cardinalidade, entidade fraca/subordinada) de formas visuais diferentes. As principais são:
+
+- **Notação de Chen** (a notação clássica, proposta por Peter Chen em 1976)
+- **Notação Pé de Galinha** (*Crow's Foot*), muito usada em ferramentas modernas de modelagem
+- **Notação UML** (adaptação do diagrama de classes da UML para modelagem de dados)
+- **Notação de Bachman**
+- **Notação IDEF1X**
+
+### Exemplos de diferenças entre notações
+
+**Cardinalidade (ex.: "um Cliente possui vários Projetos")**
+
+| Notação | Como representa a cardinalidade "1:N" |
+|---|---|
+| Chen | Números ou letras (1, N) escritos ao lado da linha que liga a entidade ao losango de relacionamento |
+| Pé de Galinha (Crow's Foot) | Símbolos gráficos nas pontas da linha: um traço (⊣) para "um" e um "pé de galinha" (三 aberto) para "muitos"; um círculo indica opcionalidade (zero) |
+| UML | Multiplicidade escrita como texto nas pontas da associação, ex.: `1` e `0..*` ou `1..*` |
+| IDEF1X | Também usa pé de galinha, mas diferencia relacionamento identificador (linha sólida) de não identificador (linha tracejada) |
+
+**Entidade fraca/subordinada (ex.: uma entidade que depende de outra para existir, como "Dependente" que só existe vinculado a um "Funcionário")**
+
+| Notação | Como representa a entidade fraca |
+|---|---|
+| Chen | Retângulo de borda dupla para a entidade fraca, e losango de borda dupla para o relacionamento identificador |
+| Pé de Galinha | Geralmente um retângulo com cantos arredondados (entidade fraca) versus cantos retos (entidade forte) |
+| UML | Um relacionamento de composição (losango preenchido) na ponta da entidade "todo", indicando que a entidade "parte" não existe sem ela |
+| IDEF1X | Retângulo de cantos arredondados para entidade dependente, ligado por relacionamento identificador (linha sólida) |
+
+**Relacionamento em si (o "verbo" que liga as entidades)**
+
+| Notação | Como representa o relacionamento |
+|---|---|
+| Chen | Losango, com o nome do relacionamento escrito dentro |
+| Pé de Galinha / IDEF1X | Não usa losango — o relacionamento é representado apenas pela própria linha que liga as entidades, com o nome escrito ao lado |
+| UML | Uma linha de associação entre as classes, com o nome do relacionamento escrito próximo à linha |
+
+---
+
